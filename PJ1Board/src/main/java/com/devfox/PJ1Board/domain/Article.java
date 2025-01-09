@@ -8,13 +8,11 @@ package com.devfox.PJ1Board.domain;
 * */
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity //JPAを使用してDBテーブルとマッピングするクラスは @Entityを付ける必要があります
-@NoArgsConstructor //基本生成者
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //基本生成者
 public class Article {
 
     @Id //ここのフィールドを基本キーとして使う
@@ -23,14 +21,14 @@ public class Article {
     private long id; //データベースの中にはBIGINTと利用
 
     @Column(name="title", nullable = false)
-    private long title;
+    private String title;
 
     @Column(name="content", nullable = false)
     private String content;
 
     @Builder //Builderパタンを利用してオブジェクト生成(可読性向上のために)
     //生成者 自動完成　ショートカットキー＝ alt+ins(INTELLIJ)
-    public Article(long title, String content) {
+    public Article(String title, String content) {
         this.title = title;
         this.content = content;
     }
