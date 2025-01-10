@@ -10,6 +10,7 @@ package com.devfox.PJ1Board.controller;
 import com.devfox.PJ1Board.domain.Article;
 import com.devfox.PJ1Board.dto.AddArticleRequestDTO;
 import com.devfox.PJ1Board.dto.ArticleResponseDTO;
+import com.devfox.PJ1Board.dto.UpdateArticleRequestDTO;
 import com.devfox.PJ1Board.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,22 @@ public class BlogController {
     public  ResponseEntity<ArticleResponseDTO> findArticle(@PathVariable("id") Long id){
         Article article = blogService.findByID(id);//特定アーティクル抽出
         return ResponseEntity.ok().body(new ArticleResponseDTO(article)); //要求したデータを伝送
+    }
+
+    @PutMapping("/api/articles/{id}") //修正要請 = PUT
+    public ResponseEntity<Article> updateArticle(@PathVariable("id") long id,
+                                                 @RequestBody UpdateArticleRequestDTO requestDTO){
+
+        Article updateArticle = blogService.update(id, requestDTO);
+        return ResponseEntity.ok().body(updateArticle);
+
+    }
+
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable("id") long id){
+        blogService.delete(id); //アーティクル削除命令
+
+        return ResponseEntity.ok().build(); //返す値がないのでそのままビルド
     }
 
 }

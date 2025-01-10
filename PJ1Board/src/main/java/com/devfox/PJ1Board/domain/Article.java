@@ -33,4 +33,10 @@ public class Article {
         this.content = content;
     }
 
+    //特定アーティクル修正
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
+
 }

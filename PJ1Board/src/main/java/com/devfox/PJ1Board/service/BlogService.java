@@ -9,7 +9,9 @@ package com.devfox.PJ1Board.service;
 
 import com.devfox.PJ1Board.domain.Article;
 import com.devfox.PJ1Board.dto.AddArticleRequestDTO;
+import com.devfox.PJ1Board.dto.UpdateArticleRequestDTO;
 import com.devfox.PJ1Board.repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,24 @@ public class BlogService {
         return blogRepository.findById(id) //idを見つけた場合、id値に該当するタイトル、コメントを返します
                 .orElseThrow(()->new IllegalArgumentException(id + " : not Found!"));
                 //idが見つからない場合は例外処理を実行
+    }
+
+    @Transactional //相互作用の単位、これ以上割れない最小の演算
+    public Article update(long id, UpdateArticleRequestDTO requestDTO){
+
+        //該当するアーティクルを探すロジック
+        Article article = blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException(id + " : not Found!"));
+
+        //アーティクルアップデート
+        article.update(requestDTO.getTitle(), requestDTO.getContent());
+
+        return article;
+    }
+
+    //アーティクル削除
+    public void delete(long id){
+        blogRepository.deleteById(id);
     }
 
 }
