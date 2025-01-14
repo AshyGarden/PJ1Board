@@ -9,7 +9,14 @@ package com.devfox.PJ1Board.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
+@EntityListeners(AuditingEntityListener.class)
+//spring Data JPAでエンティティの生成、修正などのイベントに対する自動監査を活性化するために使用するアノテーション
 @Getter
 @Entity //JPAを使用してDBテーブルとマッピングするクラスは @Entityを付ける必要があります
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //基本生成者
@@ -38,5 +45,13 @@ public class Article {
         this.title = title;
         this.content = content;
     }
+
+    @CreatedDate //最初作成時間
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate //最終修正時間
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 }

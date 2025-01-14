@@ -2,11 +2,13 @@ package com.devfox.PJ1Board.controller;
 
 import com.devfox.PJ1Board.domain.Article;
 import com.devfox.PJ1Board.dto.ArticleListViewResponseDTO;
+import com.devfox.PJ1Board.dto.ArticleViewResponseDTO;
 import com.devfox.PJ1Board.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -33,6 +35,14 @@ public class BlogViewController {
         model.addAttribute("articles", articles);//要求したデータをアトリビュートに挿入
 
         return "articleList"; //リータンの中ある名前のビュー照会
+    }
+
+    @GetMapping("/articles/{id}") //URLの中でidバリューを利用してメソッドを起動
+    public String getArticle(@PathVariable("id") Long id, Model model){
+        Article article = blogService.findByID(id);
+        model.addAttribute("article", new ArticleViewResponseDTO(article));
+
+        return "article"; //リータンの中ある名前のビュー照会
     }
 
 }

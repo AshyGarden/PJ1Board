@@ -7,19 +7,19 @@
 </head>
 <body>
 
-    <div class="p-5 mb-5 text-center bg-success-subtle">
+    <div class="p-5 mb-5 text-center bg-success">
     <!--         -->
         <h1 class="mb-3">プロジェクト1 ボード（ブログ）</h1>
         <h4 class="mb-3">ようこそ、私のブログへ！</h4>
     </div>
 
     <div class="container">
-        <div class="row-6" th:each="item : ${articles}">
+        <div class="row-6" th:each="item : ${articles}"> <!-- articlesの本数分繰り返し -->
             <div class="card-header" th:text="${item.id}"></div>
             <div class="card-body">
-                <h5 class="card-title" th.text="${item.title}"></h5>
+                <h5 class="card-title" th:text="${item.title}"></h5>
                 <p class="card-text" th:text="${item.content}"></p>
-                <a href="#" class="btn btn-primary">見に行く!</a>
+                <a th:href="@{/articles/{id}(id=${item.id})}" class="btn btn-primary">見に行く!</a>
             </div>
             <hr/>
         </div>
