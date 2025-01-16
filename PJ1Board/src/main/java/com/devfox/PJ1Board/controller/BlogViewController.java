@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -43,6 +44,18 @@ public class BlogViewController {
         model.addAttribute("article", new ArticleViewResponseDTO(article));
 
         return "article"; //リータンの中ある名前のビュー照会
+    }
+
+    @GetMapping("/new-article")
+    public String newArticle(@RequestParam(required = false) Long id, Model model){
+        if(id == null){ //idがnull = 該当IDがないため登録要請
+            model.addAttribute("article",new ArticleViewResponseDTO());
+        } else{ //idが存在 = 該当IDのタイトル、登録文の修正要請
+            Article article = blogService.findByID(id);
+            model.addAttribute("article",new ArticleViewResponseDTO(article));
+        }
+
+        return "newArticle";
     }
 
 }

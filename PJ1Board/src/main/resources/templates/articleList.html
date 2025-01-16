@@ -14,6 +14,7 @@
     </div>
 
     <div class="container">
+        <button id="create-btn"  th:onclick="|location.href='@{/new-article}'|" type="button" class="btn btn-primary btn-sm">登録</button>
         <div class="row-6" th:each="item : ${articles}"> <!-- articlesの本数分繰り返し -->
             <div class="card-header" th:text="${item.id}"></div>
             <div class="card-body">
