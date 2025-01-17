@@ -16,15 +16,15 @@
         <div class="row">
             <div class="col-lg-8">
                 <article>
-                    <!-- id정보 저장 -->
-                    <input type="hidden" id="article-id" th:value="${article.id}"> <!-- id를 히든으로 추가 -->
+                    <!-- id情報保存 -->
+                    <input type="hidden" id="article-id" th:value="${article.id}">
                     <header class="mb-4">
                         <input type="text" class="form-control" placeholder="タイトル" id="title" th:value="${article.title}">
                     </header>
                     <section class="mb-5">
                         <textarea class="from-control h-25" rows="10" placeholder="内容" id="content" th:text="${article.content}"></textarea>
                     </section>
-                    <!-- id가있을때는 [수정], 없을때는 [등록] 버튼을 보이게해줌 -->
+                    <!-- idがあるときは[修正]、ないときは[登録]ボタンが見えるようにする -->
                     <button th:if="${article.id} != null" type="button" id="modify-btn" th:onclick="|location.href='@{/new-article?id={articleId}(articleId=${articleId})}'|" class="btn btn-primary btn-sm">修正</button>
                     <button th:if="${article.id} == null" type="button" id="create-btn" class="btn btn-primary btn-sm">登録</button>
                 </article>

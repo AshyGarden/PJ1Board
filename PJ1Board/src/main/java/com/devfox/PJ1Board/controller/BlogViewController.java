@@ -1,5 +1,12 @@
 package com.devfox.PJ1Board.controller;
 
+/*
+ * 作成者: チェヨンジュン
+ * Class名 : BlogViewController
+ * 機能 : ブログビューローラー
+ * Date: 2025-01-13
+ * */
+
 import com.devfox.PJ1Board.domain.Article;
 import com.devfox.PJ1Board.dto.ArticleListViewResponseDTO;
 import com.devfox.PJ1Board.dto.ArticleViewResponseDTO;
@@ -13,12 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-/*
- * 作成者: チェヨンジュン
- * Class名 : BlogViewController
- * 機能 : ブログビューローラー
- * Date: 2025-01-13
- * */
 @RequiredArgsConstructor
 @Controller
 public class BlogViewController {

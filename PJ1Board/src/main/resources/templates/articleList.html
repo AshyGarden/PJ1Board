@@ -12,7 +12,7 @@
         <h1 class="mb-3">プロジェクト1 ボード（ブログ）</h1>
         <h4 class="mb-3">ようこそ、私のブログへ！</h4>
     </div>
-
+    <button type="button" class="btn btn-primary" onclick="location:href='/logout'">ログアウト</button>
     <div class="container">
         <button id="create-btn"  th:onclick="|location.href='@{/new-article}'|" type="button" class="btn btn-primary btn-sm">登録</button>
         <div class="row-6" th:each="item : ${articles}"> <!-- articlesの本数分繰り返し -->
@@ -27,4 +27,5 @@
     </div>
 
 </body>
+<script !src="/js/article.js"></script>
 </html>
