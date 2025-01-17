@@ -12,3 +12,6 @@ spring:
     console:
       enabled: true
 
+jwt:
+  issuer: jun940317@naver.com
+  secret_key: study-springboot
