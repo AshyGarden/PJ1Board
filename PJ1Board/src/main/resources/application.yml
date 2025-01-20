@@ -11,7 +11,14 @@ spring:
   h2:
     console:
       enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
 
 jwt:
-  issuer: jun940317@naver.com
+  issuer: jun940317@gmail.com
   secret_key: study-springboot
