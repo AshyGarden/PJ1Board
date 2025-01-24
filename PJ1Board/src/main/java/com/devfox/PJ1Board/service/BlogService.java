@@ -13,6 +13,7 @@ import com.devfox.PJ1Board.dto.UpdateArticleRequestDTO;
 import com.devfox.PJ1Board.repository.BlogRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     //ブログ書き込追加メソッド
-    public Article save(AddArticleRequestDTO requestDTO){
-        return blogRepository.save(requestDTO.toEntity());
+    public Article save(AddArticleRequestDTO requestDTO, String userName){
+        return blogRepository.save(requestDTO.toEntity(userName));
     }
 
     //ブログの投稿をすべて取得するメソッド
@@ -47,6 +48,7 @@ public class BlogService {
         Article article = blogRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException(id + " : not Found!"));
 
+        authorizeArticleAuthor(article);
         //アーティクルアップデート
         article.update(requestDTO.getTitle(), requestDTO.getContent());
 
@@ -55,7 +57,18 @@ public class BlogService {
 
     //アーティクル削除
     public void delete(long id){
-        blogRepository.deleteById(id);
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("見つかりません: " + id));
+
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
+    }
+
+    private static void authorizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("無許可ユーザー");
+        }
     }
 
 }

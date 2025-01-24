@@ -20,10 +20,18 @@ public class AddArticleRequestDTO {
     private String title;
     private String content;
 
-    public Article toEntity(){ //生成者を利用して客体生成
+//    public Article toEntity(){ //生成者を利用して客体生成
+//        return Article.builder() //ビルダーパタンを利用して具現
+//                .title(title)
+//                .content(content)
+//                .build();
+//    }
+
+    public Article toEntity(String author){ //生成者を利用して客体生成
         return Article.builder() //ビルダーパタンを利用して具現
                 .title(title)
                 .content(content)
+                .author(author) //作成者追加
                 .build();
     }
 

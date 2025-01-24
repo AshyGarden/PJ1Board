@@ -33,9 +33,13 @@ public class Article {
     @Column(name="content", nullable = false)
     private String content;
 
+    @Column(name="author", nullable = false)
+    private String author;
+
     @Builder //Builderパタンを利用してオブジェクト生成(可読性向上のために)
     //生成者 自動完成　ショートカットキー＝ alt+ins(INTELLIJ)
-    public Article(String title, String content) {
+    public Article(String author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }

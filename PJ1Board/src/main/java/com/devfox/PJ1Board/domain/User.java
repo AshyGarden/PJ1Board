@@ -36,10 +36,20 @@ public class User implements UserDetails { //UserDetailを継承して認証オ�
     @Column(name="password")
     private String password;
 
-    @Builder
-    public User(String email, String password, String auth){
+    @Column(name="nickname", unique = true)
+    private String nickname;
+
+//    @Builder
+//    public User(String email, String password){
+//        this.email = email;
+//        this.password = password;
+//    }
+
+    @Builder //生成者に 異名追加
+    public User(String email, String password, String nickname){
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override //権限 返還
@@ -80,4 +90,11 @@ public class User implements UserDetails { //UserDetailを継承して認証オ�
         //アカウントの使用可否
         return true; //true = 使用可能
     }
+
+    //ユーザー名変更
+    public User update(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
 }
